@@ -1,0 +1,4 @@
+requests
+pillow
+gradio>=4
+openai
