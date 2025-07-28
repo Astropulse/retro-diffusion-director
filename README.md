@@ -47,7 +47,7 @@ openai
 ## 3 · Run the playground
 
 ```bash
-python rd_director.py
+python artist_playground.py
 ```
 
 Your browser opens with the chat‑style playground.
@@ -74,7 +74,7 @@ When the Critic approves, **`outputs/final.png`** (3 × nearest‑neighbour up
 │  ├─ step_001.png
 │  └─ final.png      # critic‑approved frame
 ├─ api_keys.json     # ← YOUR KEYS LIVE HERE
-├─ rd_director.py
+├─ artist_playground.py
 ├─ requirements.txt
 ```
 
