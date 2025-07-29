@@ -5,6 +5,10 @@ to iterate toward the perfect pixel‑art scene via RetroDiffusion.
 A lightweight Gradio UI lets you watch each revision, pause the workflow, and  
 add your own feedback on the fly.
 
+<img width="1486" height="1087" alt="image" src="https://github.com/user-attachments/assets/b6b2452c-d052-42b3-8629-9db4df892119" />
+![out](https://github.com/user-attachments/assets/c851ae60-4c9f-4d5d-baab-2e2e41f51a19)
+
+
 ---
 
 ## 1 · Add your API keys
