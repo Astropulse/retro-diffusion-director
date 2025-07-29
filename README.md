@@ -6,7 +6,6 @@ A lightweight Gradio UI lets you watch each revision, pause the workflow, and
 add your own feedback on the fly.
 
 <img width="1486" height="1087" alt="image" src="https://github.com/user-attachments/assets/b6b2452c-d052-42b3-8629-9db4df892119" />
-![out](https://github.com/user-attachments/assets/bbfc6ba4-f9f5-42a1-9faa-a1d47f213259)
 
 
 ---
