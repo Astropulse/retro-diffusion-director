@@ -52,6 +52,7 @@ openai
 ```bash
 python artist_playground.py
 ```
+*To change the credit cost limit per-session, edit the `CREDIT_LIMIT` constant in the script. Defailt is 30.*
 
 Your browser opens with the chat‑style playground.
 
