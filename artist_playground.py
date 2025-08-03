@@ -278,11 +278,12 @@ class Session(threading.Thread):
     GOAL_REWRITE_MODEL = "gpt-4o-mini"
     JSON_RETRY = 1
 
-    def __init__(self, goal: str, ui_q: queue.Queue):
+    def __init__(self, goal: str, ui_q: queue.Queue, budget: int):
         super().__init__(daemon=True)
-        log.info("Session start: goal=%s", goal)
+        log.info("Session start: goal=%s budget=%d", goal, budget)
         self.goal_original = goal
         self.goal = goal
+        self.initial_budget = budget
         self.ui_q = ui_q
         self.last_img_b64: Optional[str] = None
         self.pause_event = threading.Event()
@@ -360,7 +361,7 @@ class Session(threading.Thread):
 
     def run(self):
         artist_ctx,critic_ctx=[],[]
-        remaining,rd_err,step=CREDIT_LIMIT,0,-1
+        remaining,rd_err,step = self.initial_budget,0,-1
         seed:Optional[int]=None
         typing=False; approved=False
 
@@ -564,9 +565,9 @@ def launch_gradio():
         html += "</div>"
         return html
 
-    def run(goal: str) -> str:
+    def run(goal: str, budget: float) -> str:
         nonlocal typing
-        log.info("RUN/RESUME clicked with goal: %s", goal)
+        log.info("RUN/RESUME clicked with goal: %s and budget: %s", goal, budget)
         while not ui_q.empty():
             ui_q.get_nowait()
         typing = False
@@ -632,7 +633,11 @@ def launch_gradio():
 
     with gr.Blocks(title="Pixel Artist + Critic") as demo:
         gr.Markdown("### Pixel Artist / Critic Playground")
-        goal_in = gr.Textbox(label="Your request")
+        with gr.Row():
+            with gr.Column(scale=3):
+                goal_in = gr.Textbox(label="Your request")
+            with gr.Column(scale=1):
+                budget_in = gr.Number(label="Budget", value=CREDIT_LIMIT, precision=0)
         with gr.Row():
             run_btn = gr.Button("RUN / RESUME")
             pause_btn = gr.Button("PAUSE")
@@ -642,7 +647,7 @@ def launch_gradio():
             fb_in = gr.Textbox(label="Critique")
             fb_btn = gr.Button("CRITIQUE ▶")
             clr_btn = gr.Button("CLEAR")
-        run_btn.click(run, [goal_in], chatbox)
+        run_btn.click(run, [goal_in, budget_in], chatbox)
         pause_btn.click(pause, None, chatbox)
         stop_btn.click(stop, None, chatbox)
         clr_btn.click(clear, None, chatbox)
