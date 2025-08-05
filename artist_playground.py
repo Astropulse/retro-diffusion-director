@@ -574,7 +574,7 @@ def launch_gradio():
         if sess_holder["session"] and sess_holder["session"].is_alive():
             sess_holder["session"].pause_event.clear()
         else:
-            sess_holder["session"] = Session(goal, ui_q)
+            sess_holder["session"] = Session(goal, ui_q, budget)
             sess_holder["session"].start()
             chat_history.append(("User", goal))
         return render_chat()
